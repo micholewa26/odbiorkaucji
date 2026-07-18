@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#06281c"/>
+  <path d="M27 12h10v6l3 4v26a4 4 0 0 1-4 4H28a4 4 0 0 1-4-4V22l3-4z" fill="none" stroke="#2fd98a" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="32" cy="38" r="7" fill="#2fd98a"/>
+  <text x="32" y="42" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#06281c" text-anchor="middle">zł</text>
+</svg>
