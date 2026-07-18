@@ -56,7 +56,7 @@ export const steps = {
     },
     {
       title: "Zgłaszasz odbiór",
-      body: "W formularzu podajesz adres, liczbę worków i dogodny termin. Zgłoszenie jest darmowe i niezobowiązujące.",
+      body: "W formularzu podajesz adres i szacunkową liczbę opakowań. Zgłoszenie jest darmowe i niezobowiązujące.",
     },
     {
       title: "Kurier zabiera worki",
@@ -146,8 +146,8 @@ export const faq = {
       a: "Startujemy w Warszawie i najbliższych okolicach. Zostaw adres w formularzu — jeśli Twoja dzielnica nie jest jeszcze obsługiwana, damy Ci znać, gdy dojedziemy.",
     },
     {
-      q: "Ile worków minimum?",
-      a: "Przyjmujemy zgłoszenia już od jednego worka 60 l. Im więcej worków zgłosisz Ty i Twoi sąsiedzi, tym szybciej kurier pojawi się w okolicy.",
+      q: "Ile opakowań minimum?",
+      a: "Przyjmujemy zgłoszenia od 80 opakowań — to mniej więcej jeden pełny worek 60 l. Im więcej zgłosisz Ty i Twoi sąsiedzi, tym szybciej kurier pojawi się w okolicy.",
     },
   ],
 };

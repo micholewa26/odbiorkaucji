@@ -100,6 +100,19 @@ export default function LeadForm() {
               </div>
 
               <div className="grid gap-5 sm:grid-cols-3">
+                <div className="sm:col-span-2">
+                  <label htmlFor="address" className="mb-1.5 block text-sm font-medium">
+                    Adres odbioru (ulica i numer)
+                  </label>
+                  <input
+                    id="address"
+                    name="adres"
+                    required
+                    autoComplete="street-address"
+                    placeholder="ul. Przykładowa 12/34"
+                    className={inputClass}
+                  />
+                </div>
                 <div>
                   <label htmlFor="district" className="mb-1.5 block text-sm font-medium">
                     Dzielnica
@@ -113,17 +126,27 @@ export default function LeadForm() {
                     ))}
                   </select>
                 </div>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="bags" className="mb-1.5 block text-sm font-medium">
-                    Liczba worków
+                  <label htmlFor="items" className="mb-1.5 block text-sm font-medium">
+                    Szacunkowa liczba butelek i puszek
                   </label>
-                  <select id="bags" name="liczba_workow" required className={inputClass}>
-                    {["1", "2", "3", "4", "5+"].map((n) => (
-                      <option key={n} value={n}>
-                        {n}
-                      </option>
-                    ))}
-                  </select>
+                  <input
+                    id="items"
+                    name="liczba_opakowan"
+                    type="number"
+                    min={80}
+                    step={1}
+                    required
+                    inputMode="numeric"
+                    placeholder="np. 120"
+                    className={inputClass}
+                  />
+                  <p className="mt-1.5 text-xs text-muted-foreground">
+                    Minimum 80 opakowań — mniej więcej jeden pełny worek 60 l.
+                  </p>
                 </div>
                 <div>
                   <label htmlFor="type" className="mb-1.5 block text-sm font-medium">

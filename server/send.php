@@ -72,13 +72,15 @@ $field = fn (string $k) => trim((string) ($_POST[$k] ?? ''));
 $imie      = mb_substr($field('imie'), 0, 100);
 $telefon   = mb_substr($field('telefon'), 0, 30);
 $email     = mb_substr($field('email'), 0, 200);
+$adres     = mb_substr($field('adres'), 0, 200);
 $dzielnica = mb_substr($field('dzielnica'), 0, 50);
-$worki     = mb_substr($field('liczba_workow'), 0, 10);
+$opakowania = (int) $field('liczba_opakowan');
 $typ       = mb_substr($field('typ_klienta'), 0, 20);
 $uwagi     = mb_substr($field('uwagi'), 0, 1000);
 $zgoda     = $field('zgoda');
 
-if ($imie === '' || $telefon === '' || $dzielnica === '' || $zgoda !== 'tak'
+if ($imie === '' || $telefon === '' || $adres === '' || $dzielnica === ''
+    || $opakowania < 80 || $zgoda !== 'tak'
     || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(422);
     echo json_encode(['ok' => false, 'error' => 'validation']);
@@ -93,24 +95,25 @@ if ($fh) {
     if ($isNew) {
         // BOM, żeby Excel poprawnie otwierał UTF-8.
         fwrite($fh, "\xEF\xBB\xBF");
-        fputcsv($fh, ['data', 'imie', 'telefon', 'email', 'dzielnica', 'liczba_workow', 'typ_klienta', 'uwagi', 'ip'], ';');
+        fputcsv($fh, ['data', 'imie', 'telefon', 'email', 'adres', 'dzielnica', 'liczba_opakowan', 'typ_klienta', 'uwagi', 'ip'], ';');
     }
-    fputcsv($fh, [date('Y-m-d H:i:s'), $imie, $telefon, $email, $dzielnica, $worki, $typ, $uwagi, $ip], ';');
+    fputcsv($fh, [date('Y-m-d H:i:s'), $imie, $telefon, $email, $adres, $dzielnica, $opakowania, $typ, $uwagi, $ip], ';');
     fclose($fh);
 }
 
 // --- Mail do operatora --------------------------------------------------
 $body = "Nowe zgłoszenie odbioru — odbiorkaucji.pl\n\n"
-    . "Imię:          $imie\n"
-    . "Telefon:       $telefon\n"
-    . "E-mail:        $email\n"
-    . "Dzielnica:     $dzielnica\n"
-    . "Liczba worków: $worki\n"
-    . "Typ klienta:   $typ\n"
-    . "Uwagi:         $uwagi\n\n"
+    . "Imię:             $imie\n"
+    . "Telefon:          $telefon\n"
+    . "E-mail:           $email\n"
+    . "Adres:            $adres\n"
+    . "Dzielnica:        $dzielnica\n"
+    . "Liczba opakowań:  ~$opakowania\n"
+    . "Typ klienta:      $typ\n"
+    . "Uwagi:            $uwagi\n\n"
     . "Data: " . date('Y-m-d H:i:s') . "\nIP: $ip\n";
 
-$subject = '=?UTF-8?B?' . base64_encode("Zgłoszenie odbioru: $dzielnica ($worki work.)") . '?=';
+$subject = '=?UTF-8?B?' . base64_encode("Zgłoszenie odbioru: $dzielnica (~$opakowania opak.)") . '?=';
 $headers = 'From: ' . MAIL_FROM . "\r\n"
     . 'Reply-To: ' . $email . "\r\n"
     . "MIME-Version: 1.0\r\n"
