@@ -29,11 +29,11 @@ export default function Hero() {
             {hero.subtitle}
           </p>
 
-          {/* Film z odbioru: autoplay bez dźwięku; lekki zoom z przesunięciem
-              w lewo kadruje znak wodny generatora przy prawej krawędzi. */}
+          {/* Film z odbioru: autoplay bez dźwięku; plik jest już przycięty
+              (0–7 s) i wykadrowany ze znaku wodnego po stronie ffmpeg. */}
           <div className="mx-auto mt-10 aspect-video max-w-2xl overflow-hidden rounded-xl border border-primary/30 shadow-glow">
             <video
-              className="h-full w-full origin-left scale-110 object-cover"
+              className="h-full w-full object-cover"
               src={media.handover.video}
               poster={media.handover.poster}
               autoPlay
