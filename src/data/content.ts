@@ -7,18 +7,32 @@ export const site = {
   city: "Warszawa",
 };
 
-// Endpoint formularza (Formspree): po założeniu formularza na formspree.io
-// podmień TWOJ_ID na identyfikator formularza. Zgłoszenia przychodzą na
-// maila i zapisują się w tabeli w panelu Formspree.
-export const FORM_ENDPOINT = "https://formspree.io/f/TWOJ_ID";
+// Endpoint formularza — własny skrypt PHP na subdomenie (hosting home.pl),
+// źródło w server/send.php. Zgłoszenia idą mailem na skrzynkę operatora
+// i dopisują się do CSV na serwerze.
+export const FORM_ENDPOINT = "https://api.odbiorkaucji.pl/send.php";
 
 // Parametry rozliczenia — do kalkulatora i sekcji stawek.
 export const pricing = {
-  depositPet: 0.5, // butelka PET do 3 l
-  depositCan: 0.5, // puszka do 1 l
-  depositGlass: 1.0, // butelka szklana wielorazowa do 1,5 l
+  deposit: 0.5, // kaucja za butelkę PET do 3 l i puszkę do 1 l
   serviceFee: 0.12, // nasza opłata serwisowa za opakowanie
-  itemsPerBag: 60, // szacunkowo opakowań w worku 60 l
+  minItems: 80, // minimalna liczba opakowań w kalkulatorze
+  stepItems: 10, // krok kalkulatora
+  maxItems: 1000,
+};
+
+// Filmy + zdjęcia (public/media/).
+export const media = {
+  handover: {
+    video: "media/oddanie.mp4",
+    poster: "media/oddanie.jpg",
+    caption: "Kurier odbiera worek spod drzwi",
+  },
+  payout: {
+    video: "media/wyplata.mp4",
+    poster: "media/wyplata.jpg",
+    caption: "Kaucja ląduje na koncie",
+  },
 };
 
 export const hero = {
@@ -36,7 +50,7 @@ export const steps = {
   items: [
     {
       title: "Pakujesz worek",
-      body: "Butelki PET, puszki i butelki zwrotne wrzucasz do zwykłego worka 60–240 l. Nie musisz niczego liczyć ani skanować.",
+      body: "Butelki plastikowe i puszki wrzucasz do zwykłego worka 60–240 l. Nie musisz niczego liczyć ani skanować.",
     },
     {
       title: "Zgłaszasz odbiór",
@@ -61,9 +75,9 @@ export const rates = {
   items: [
     { label: "Butelka plastikowa do 3 l", value: "0,50 zł" },
     { label: "Puszka metalowa do 1 l", value: "0,50 zł" },
-    { label: "Butelka szklana wielorazowa do 1,5 l", value: "1,00 zł" },
   ],
   feeNote: "Opłata serwisowa: 0,12 zł za opakowanie — naliczana dopiero po odbiorze.",
+  glassNote: "Na start odbieramy tylko plastik i puszki — butelek szklanych na razie nie przyjmujemy.",
 };
 
 export const compare = {
@@ -115,7 +129,7 @@ export const faq = {
     },
     {
       q: "Jakie opakowania mogę oddać?",
-      a: "Opakowania objęte systemem kaucyjnym: butelki plastikowe do 3 l, puszki metalowe do 1 l i butelki szklane wielorazowe do 1,5 l. Ważne: butelek nie zgniataj — etykieta i kod kreskowy muszą być czytelne.",
+      a: "Butelki plastikowe do 3 l i puszki metalowe do 1 l objęte systemem kaucyjnym. Butelek szklanych na razie nie przyjmujemy. Ważne: opakowań nie zgniataj — etykieta i kod kreskowy muszą być czytelne.",
     },
     {
       q: "Czy muszę liczyć albo skanować butelki?",

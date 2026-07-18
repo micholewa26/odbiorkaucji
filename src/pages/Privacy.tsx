@@ -51,9 +51,9 @@ export default function Privacy() {
       <section>
         <h2>5. Odbiorcy danych</h2>
         <p>
-          Do obsługi formularza korzystamy z zewnętrznego dostawcy usługi przekazywania
-          formularzy (Formspree, Inc.), który przetwarza dane w naszym imieniu. Dane nie
-          są sprzedawane ani udostępniane innym podmiotom w celach marketingowych.
+          Dane z formularza trafiają bezpośrednio na serwer operatora Serwisu
+          (hosting home.pl S.A.) i na skrzynkę e-mail operatora. Dane nie są
+          sprzedawane ani udostępniane innym podmiotom w celach marketingowych.
         </p>
       </section>
 

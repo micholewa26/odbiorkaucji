@@ -45,6 +45,15 @@ export default function LeadForm() {
             </div>
           ) : (
             <form onSubmit={onSubmit} className="card-glow space-y-5 p-8">
+              {/* Honeypot antyspamowy — ukryte pole, boty je wypełniają. */}
+              <input
+                type="text"
+                name="firma_www"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="mb-1.5 block text-sm font-medium">

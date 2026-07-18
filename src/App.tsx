@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import HowItWorks from "./components/HowItWorks";
 import Rates from "./components/Rates";
+import Payout from "./components/Payout";
 import Compare from "./components/Compare";
 import Business from "./components/Business";
 import Faq from "./components/Faq";
@@ -39,6 +40,7 @@ export default function App() {
         <Hero />
         <HowItWorks />
         <Rates />
+        <Payout />
         <Compare />
         <Business />
         <Faq />

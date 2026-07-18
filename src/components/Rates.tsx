@@ -8,11 +8,9 @@ const zl = (n: number) =>
   n.toLocaleString("pl-PL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " zł";
 
 export default function Rates() {
-  const [bags, setBags] = useState(2);
+  const [items, setItems] = useState(pricing.minItems);
 
-  const items = bags * pricing.itemsPerBag;
-  // Estymacja zakłada wyłącznie opakowania 0,50 zł (PET/puszki) — zachowawczo.
-  const deposit = items * pricing.depositPet;
+  const deposit = items * pricing.deposit;
   const fee = items * pricing.serviceFee;
   const payout = deposit - fee;
 
@@ -40,6 +38,7 @@ export default function Rates() {
                 ))}
               </ul>
               <p className="mt-6 text-sm text-muted-foreground">{rates.feeNote}</p>
+              <p className="mt-3 text-sm text-muted-foreground">{rates.glassNote}</p>
             </div>
           </Reveal>
 
@@ -47,19 +46,19 @@ export default function Rates() {
             <div className="card-glow h-full p-8">
               <h3 className="font-display text-lg font-semibold">Policz swoją wypłatę</h3>
               <div className="mt-6 flex items-center justify-between gap-4">
-                <span className="text-sm text-muted-foreground">Worki 60 l:</span>
+                <span className="text-sm text-muted-foreground">Puszki i butelki:</span>
                 <div className="flex items-center gap-3">
                   <button
-                    onClick={() => setBags((b) => Math.max(1, b - 1))}
-                    aria-label="Mniej worków"
+                    onClick={() => setItems((n) => Math.max(pricing.minItems, n - pricing.stepItems))}
+                    aria-label="Mniej opakowań"
                     className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
                   >
                     <Minus className="h-4 w-4" />
                   </button>
-                  <span className="w-8 text-center font-display text-xl font-bold">{bags}</span>
+                  <span className="w-14 text-center font-display text-xl font-bold">{items}</span>
                   <button
-                    onClick={() => setBags((b) => Math.min(20, b + 1))}
-                    aria-label="Więcej worków"
+                    onClick={() => setItems((n) => Math.min(pricing.maxItems, n + pricing.stepItems))}
+                    aria-label="Więcej opakowań"
                     className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
                   >
                     <Plus className="h-4 w-4" />
@@ -68,10 +67,6 @@ export default function Rates() {
               </div>
 
               <dl className="mt-6 space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Szacunkowo opakowań</dt>
-                  <dd className="font-medium">~{items}</dd>
-                </div>
                 <div className="flex justify-between">
                   <dt className="text-muted-foreground">Kaucja</dt>
                   <dd className="font-medium">{zl(deposit)}</dd>
@@ -86,8 +81,8 @@ export default function Rates() {
                 </div>
               </dl>
               <p className="mt-4 text-xs text-muted-foreground">
-                Wyliczenie przykładowe (~{pricing.itemsPerBag} opakowań po 0,50 zł w worku 60 l).
-                Ostateczna kwota zależy od liczby i rodzaju przyjętych opakowań.
+                Wyliczenie przykładowe (kaucja 0,50 zł za sztukę). Ostateczna kwota
+                zależy od liczby opakowań przyjętych po weryfikacji.
               </p>
             </div>
           </Reveal>
