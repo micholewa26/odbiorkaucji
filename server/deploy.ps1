@@ -5,9 +5,9 @@
 #   ... -File server\deploy.ps1 -FtpHost serwerXXXXXXX.home.pl -RemoteDir /api_odbiorkaucji
 
 param(
-    [string]$FtpHost = "serwer2614532.home.pl",
+    [string]$FtpHost = "serwer2626989.hosting-home.pl",
     [string]$RemoteDir = "/api_odbiorkaucji",
-    [string]$User = ""
+    [string]$User = "kaucjaformularz@odbiorkaucji.pl"
 )
 
 $ErrorActionPreference = "Stop"

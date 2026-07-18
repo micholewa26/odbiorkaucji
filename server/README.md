@@ -4,13 +4,19 @@ Zgłoszenia z formularza lecą POST-em na `https://api.odbiorkaucji.pl/send.php`
 Skrypt zapisuje każde zgłoszenie do `data/zgloszenia.csv` (tabela otwierana
 w Excelu) i wysyła maila na **odbior.kaucji@outlook.com**.
 
-## Kroki w panelu home.pl (~5 minut)
+## Serwer
 
-1. **Subdomena**: Usługi WWW → Subdomeny → dodaj `api` dla `odbiorkaucji.pl`,
-   wskaż katalog np. `/api_odbiorkaucji`.
-2. **Upload**: przez WebFTP (albo FTP) wgraj do tego katalogu:
-   - `send.php`
-   - katalog `data/` z plikiem `.htaccess` (blokuje publiczny dostęp do CSV)
+Hosting home.pl: `serwer2626989.hosting-home.pl`, konto FTP `kaucjaformularz`
+(dostęp do całego serwera).
+
+## Kroki (~5 minut)
+
+1. **Upload**: uruchom `powershell -ExecutionPolicy Bypass -File server\deploy.ps1`
+   (host i login są już domyślne; hasło podajesz przy uruchomieniu).
+   Skrypt utworzy `/api_odbiorkaucji` i wgra `send.php` + `data/.htaccess`.
+2. **Subdomena**: w panelu serwera SERWER2626989 dodaj subdomenę
+   `api.odbiorkaucji.pl` wskazującą na katalog `/api_odbiorkaucji`
+   (home.pl sam dopisze rekord DNS, bo domena jest w tym samym koncie).
 3. **PHP**: upewnij się, że subdomena ma PHP w wersji 8.x (domyślne na home.pl).
 4. **SSL**: włącz darmowy certyfikat dla subdomeny (Let's Encrypt w panelu),
    inaczej przeglądarka zablokuje request z HTTPS-owej strony.
