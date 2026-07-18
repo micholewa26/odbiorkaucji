@@ -7,7 +7,7 @@
 param(
     [string]$FtpHost = "serwer2626989.hosting-home.pl",
     [string]$RemoteDir = "/api_odbiorkaucji",
-    [string]$User = "kaucjaformularz@odbiorkaucji.pl"
+    [string]$User = "kaucjaformularz@serwer2626989.hosting-home.pl"
 )
 
 $ErrorActionPreference = "Stop"
