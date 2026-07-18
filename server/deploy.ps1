@@ -72,6 +72,12 @@ Invoke-Ftp ([System.Net.WebRequestMethods+Ftp]::MakeDirectory) "$RemoteDir/data"
 Write-Host "Wgrywam send.php..."
 Invoke-Ftp ([System.Net.WebRequestMethods+Ftp]::UploadFile) "$RemoteDir/send.php" (Join-Path $here "send.php") | Out-Null
 
+Write-Host "Wgrywam hit.php (licznik wejsc)..."
+Invoke-Ftp ([System.Net.WebRequestMethods+Ftp]::UploadFile) "$RemoteDir/hit.php" (Join-Path $here "hit.php") | Out-Null
+
+Write-Host "Wgrywam stats.php (podglad ruchu)..."
+Invoke-Ftp ([System.Net.WebRequestMethods+Ftp]::UploadFile) "$RemoteDir/stats.php" (Join-Path $here "stats.php") | Out-Null
+
 Write-Host "Wgrywam data/.htaccess..."
 Invoke-Ftp ([System.Net.WebRequestMethods+Ftp]::UploadFile) "$RemoteDir/data/.htaccess" (Join-Path $here "data\.htaccess") | Out-Null
 
