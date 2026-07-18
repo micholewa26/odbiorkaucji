@@ -88,6 +88,11 @@ if ($imie === '' || $telefon === '' || $adres === '' || $dzielnica === ''
 }
 
 // --- Zapis do CSV (tabela zgłoszeń) ------------------------------------
+// Ochrona przed CSV injection: wartości zaczynające się od =, +, -, @ lub
+// znaków sterujących Excel potrafi wykonać jako formułę — poprzedzamy apostrofem.
+$csvSafe = function (string $v): string {
+    return preg_match('/^[=+\-@\t\r]/u', $v) ? "'" . $v : $v;
+};
 $csvFile = DATA_DIR . '/zgloszenia.csv';
 $isNew = !is_file($csvFile);
 $fh = fopen($csvFile, 'ab');
@@ -97,7 +102,7 @@ if ($fh) {
         fwrite($fh, "\xEF\xBB\xBF");
         fputcsv($fh, ['data', 'imie', 'telefon', 'email', 'adres', 'dzielnica', 'liczba_opakowan', 'typ_klienta', 'uwagi', 'ip'], ';');
     }
-    fputcsv($fh, [date('Y-m-d H:i:s'), $imie, $telefon, $email, $adres, $dzielnica, $opakowania, $typ, $uwagi, $ip], ';');
+    fputcsv($fh, array_map($csvSafe, [date('Y-m-d H:i:s'), $imie, $telefon, $email, $adres, $dzielnica, (string) $opakowania, $typ, $uwagi, $ip]), ';');
     fclose($fh);
 }
 
