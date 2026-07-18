@@ -25,6 +25,12 @@ export default function Privacy() {
           <li>informacje podane w polu „Uwagi".</li>
         </ul>
         <p>
+          Przy wysyłce formularza zapisywany jest też adres IP nadawcy — wyłącznie w
+          celach technicznych i bezpieczeństwa (ochrona przed spamem i nadużyciami,
+          m.in. limit liczby zgłoszeń; podstawa: art. 6 ust. 1 lit. f RODO —
+          uzasadniony interes administratora).
+        </p>
+        <p>
           Serwis nie wymaga zakładania konta ani logowania. Nie zbieramy danych
           szczególnych kategorii.
         </p>
