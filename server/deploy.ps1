@@ -44,6 +44,27 @@ function Invoke-Ftp([string]$method, [string]$remotePath, [string]$localFile) {
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 
+# Najpierw sam test logowania — czytelny błąd zamiast cichej porażki później.
+Write-Host "Testuję logowanie jako $User..."
+try {
+    $req = [System.Net.FtpWebRequest]::Create("ftp://$FtpHost/")
+    $req.Credentials = $cred
+    $req.EnableSsl = $true
+    $req.UsePassive = $true
+    $req.Method = [System.Net.WebRequestMethods+Ftp]::ListDirectory
+    $req.GetResponse().Close()
+} catch {
+    Write-Host ""
+    Write-Host "LOGOWANIE ODRZUCONE (530)." -ForegroundColor Red
+    Write-Host "Spróbuj innego formatu loginu:"
+    Write-Host "  -User kaucjaformularz@$FtpHost"
+    Write-Host "  -User serwer2626989          (główne konto FTP, hasło główne)"
+    Write-Host "Login 'kaucjaformularz@odbiorkaucji.pl' zadziała dopiero, gdy domena"
+    Write-Host "odbiorkaucji.pl będzie dodana do tego serwera w panelu home.pl."
+    exit 1
+}
+Write-Host "Zalogowano OK."
+
 Write-Host "Tworzę katalogi..."
 Invoke-Ftp ([System.Net.WebRequestMethods+Ftp]::MakeDirectory) $RemoteDir $null | Out-Null
 Invoke-Ftp ([System.Net.WebRequestMethods+Ftp]::MakeDirectory) "$RemoteDir/data" $null | Out-Null
