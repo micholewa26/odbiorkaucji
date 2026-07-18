@@ -7,10 +7,12 @@ export const site = {
   city: "Warszawa",
 };
 
-// Endpoint formularza — własny skrypt PHP na subdomenie (hosting home.pl),
-// źródło w server/send.php. Zgłoszenia idą mailem na skrzynkę operatora
+// Endpoint formularza — własny skrypt PHP na hostingu home.pl, serwowany
+// z technicznego adresu serwera (ma gotowy SSL, bez konfiguracji subdomeny).
+// Źródło w server/send.php. Zgłoszenia idą mailem na skrzynkę operatora
 // i dopisują się do CSV na serwerze.
-export const FORM_ENDPOINT = "https://api.odbiorkaucji.pl/send.php";
+export const FORM_ENDPOINT =
+  "https://serwer2626989.hosting-home.pl/api_odbiorkaucji/send.php";
 
 // Parametry rozliczenia — do kalkulatora i sekcji stawek.
 export const pricing = {
